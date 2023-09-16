@@ -28,10 +28,6 @@ class UpdatePostRequest extends FormRequest
         ];
 
         // このform自体が写真を持っていたらという意味になっている
-        if ($this->file('image')){
-            $rule['image'] = 'required|file|image|mimes:jpg,png';
-        }
-
         return $rule;
     }
 }

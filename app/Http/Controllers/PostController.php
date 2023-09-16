@@ -52,31 +52,7 @@ class PostController extends Controller
     {
         $post = new Post($request->all());
         $post->user_id = $request->user()->id;
-
-        $file = $request->file('image');
-        $post->image = self::createFileName($file);
-
-        // トランザクション開始
-        DB::beginTransaction();
-
-        try {
-            // 登録
-            $post->save();
-
-            // 画像アップロード
-            if (!Storage::putFileAs('images/posts', $file, $post->image)) {
-                // 例外を投げてロールバックさせる
-                throw new \Exception('画像ファイルの保存に失敗しました。');
-            }
-
-            // トランザクション終了(成功)
-            DB::commit();
-        } catch (\Exception $e) {
-            // トランザクション終了(失敗)
-            DB::rollback();
-            return back()->withInput()->withErrors($e->getMessage());
-        }
-
+        $post->save();
         return redirect()
             ->route('posts.show', $post)
             ->with('notice', '記事を登録しました');
@@ -90,7 +66,7 @@ class PostController extends Controller
         // withは紐づいている別の情報も持ってくることができる。今回はユーザーの情報になっている。
         $post = Post::with(['user'])->find($id);
         // コメントに紐づくユーザー情報も取得している
-        $comments = $post->comments()->latest()->get()->load(['user']);
+        $comments = $post->comments()->get();
 
         return view('posts.show', compact('post','comments'));
     }
