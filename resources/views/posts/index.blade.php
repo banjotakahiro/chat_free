@@ -8,9 +8,10 @@
             <input type="submit" value="検索">
         </form>
 
-        <div class="flex flex-wrap -mx-1 lg:-mx-4 mb-4">
+        <div class="-mx-1 lg:-mx-4 mb-4 mt-10">
             @foreach ($posts as $post)
-                <article class="w-full px-4 md:w-1/2 text-xl text-gray-800 leading-normal">
+                <article class="w-full h-auto px-4 text-xl text-gray-800">
+                    <div class="w-full inset-x-0 top-0 h-1 bg-black"></div>
                     <a href="{{ route('posts.show', $post) }}">
                         <h2 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-1 text-3xl md:text-4xl break-words">{{ $post->title }}</h2>
                         <h3>{{ $post->user->name }}</h3>
@@ -21,8 +22,10 @@
                         {{-- <img class="w-full mb-2" src="{{ $post->image_url }}" alt=""> --}}
                         <p class="text-gray-700 text-base">{{ Str::limit($post->body, 50) }}</p>
                     </a>
+                    <a href="{{ route('posts.warnings.index',$post) }}">このスレッドを通報する</a>
                 </article>
             @endforeach
+                <div class="w-full px-4 inset-x-0 bottom-0 h-1 bg-black"></div>
         </div>
         {{ $posts->links() }}
     </div>

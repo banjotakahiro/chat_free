@@ -22,7 +22,7 @@
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
                     required>{{ old('body') }}</textarea>
             </div>
-            <input type="submit" value="登録"
+            <input type="submit" value="登録" onclick="if(!confirm('一度登録すると編集ができないですが、本当にこの内容でよろしいでしょうか？\n※削除はできます')){return false};"
                 class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
         </form>
     </div>

@@ -3,6 +3,8 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MailSendController;
+use App\Http\Controllers\WarningController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[PostController::class,'index'])
     ->name('root');
     // name('root')でルーティングを設定する
+
+Route::get('/mail', [MailSendController::class, 'send']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -42,5 +46,7 @@ Route::resource('posts',PostController::class)
 // URLがそれ用に紐づいている。posts.commentsで読み取れる
 
 Route::resource('posts.comments',CommentController::class);
+
+Route::resource('posts.warnings',WarningController::class);
 
 require __DIR__.'/auth.php';
