@@ -25,7 +25,7 @@
                     <a href="{{ route('posts.warnings.index',$post) }}">このスレッドを通報する</a>
                 </article>
             @endforeach
-                <div class="w-full px-4 inset-x-0 bottom-0 h-1 bg-black"></div>
+                <div class="w-full inset-x-0 bottom-0 h-1 bg-black px-4"></div>
         </div>
         {{ $posts->links() }}
     </div>
