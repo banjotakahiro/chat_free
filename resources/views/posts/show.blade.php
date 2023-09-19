@@ -1,11 +1,6 @@
 <x-app-layout>
     <div class="container lg:w-3/4 md:w-4/5 w-11/12 mx-auto my-8 px-8 py-4 bg-white shadow-md">
-
-        <x-flash-message :message="session('notice')" />
-
-        <x-validation-errors :errors="$errors" />
-
-        <article class="mb-2">
+    <article class="mb-2">
             <h2 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-1 text-3xl md:text-4xl break-words">
                 {{ $post->title }}</h2>
             <h3>{{ $post->user->name }}</h3>
@@ -39,6 +34,7 @@
             @endforeach
         </section>
         <x-validation-errors :errors="$errors" />
+        <x-flash-message :message="session('notice')" />
         <form action="{{ route('posts.comments.store', $post) }}" method="POST" class="rounded pt-3 pb-8 mb-4 flex flex-wrap">
             @csrf
             <div class="w-full md:w-3/4 mb-4 md:pr-2"> <!-- テキストエリアの横幅を7/8に設定 -->
