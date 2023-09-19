@@ -50,12 +50,14 @@ class CommentController extends Controller
                 }
                 $search_mentioned_comment_id = $comments_id->where('comment_id', $mentioned_comment_id)->first();
                 if ($search_mentioned_comment_id) {
-                    $mention_id = "mention_id_{ $counter }";
+                    $mention_id = "mention_id_$counter";
                     $comment->$mention_id = $search_mentioned_comment_id->id;
                     // 通知などの処理を追加
-                }else{
-                    throw new \Exception('このメンションした番号は存在しません');
                 }
+                1,2,3の処理が追加されて内接が濃厚
+                // else{
+                //     throw new \Exception('このメンションした番号は存在しません');
+                // }
                 $counter++;
             }
             $comment_max = Comment::where('post_id', $post->id)->max('comment_id');
