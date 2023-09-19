@@ -38,26 +38,23 @@ class CommentController extends Controller
         $comment = new Comment($request->all());
         // $comment->body = $request->bodyと似ている
         // この時点でqueryは実行されてしまっているため、変数で引き継ぐことはできない!!!
-        $comments_id = Comment::where('post_id', $post->id);
         DB::beginTransaction();
         try {
             preg_match_all('/@(\w+)/', $request->body, $matches);
             // リストを指定してそこに入れていく！！！
             $counter = 1;
             foreach ($matches[1] as $mentioned_comment_id) {
-                if ($counter>3) {
+                if ($counter > 3) {
                     throw new \Exception('メンションできるコメントは3つまでです。');
                 }
-                $search_mentioned_comment_id = $comments_id->where('comment_id', $mentioned_comment_id)->first();
+                $search_mentioned_comment_id = Comment::where('post_id', $post->id)->where('comment_id', $mentioned_comment_id)->first();
                 if ($search_mentioned_comment_id) {
                     $mention_id = "mention_id_$counter";
                     $comment->$mention_id = $search_mentioned_comment_id->id;
                     // 通知などの処理を追加
+                }else{
+                    throw new \Exception('このメンションした番号は存在しません');
                 }
-                1,2,3の処理が追加されて内接が濃厚
-                // else{
-                //     throw new \Exception('このメンションした番号は存在しません');
-                // }
                 $counter++;
             }
             $comment_max = Comment::where('post_id', $post->id)->max('comment_id');
