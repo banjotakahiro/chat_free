@@ -1,6 +1,6 @@
-<script src="{{ asset('js/custom.js') }}"></script>
 <x-app-layout>
     <div class="container lg:w-3/4 md:w-4/5 w-11/12 mx-auto my-8 px-8 py-4 bg-white shadow-md">
+        <h1 id="yourClickTarget">テストです！！</h1>
         <article class="mb-2">
             <h2 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-1 text-3xl md:text-4xl break-words">
                 {{ $post->title }}</h2>
@@ -26,7 +26,7 @@
         <section class="font-sans break-normal text-gray-900 ">
             @foreach ($comments as $comment)
                 <div class="my-2">
-                    <div id="yourClickTarget">
+                    <div>
                         <span id=comment_id value="" class="font-bold mr-3">{{ $comment->comment_id }}</span>
                         <span class="font-bold mr-3">平泉を愛するもの</span>
                         <span class="text-sm">{{ $comment->created_at }}</span>
@@ -52,4 +52,5 @@
             </div>
         </form>
     </div>
+<script src="{{ asset('js/custom.js') }}"></script>
 </x-app-layout>
