@@ -30,6 +30,7 @@
         <section class="font-sans break-normal text-gray-900 ">
             @foreach ($comments as $comment)
                 <div class="my-2">
+                    <span class="font-bold mr-3">{{ $comment->comment_id }}</span>
                     <span class="font-bold mr-3">平泉を愛するもの</span>
                     <span class="text-sm">{{ $comment->created_at }}</span>
                     <p>{!! nl2br(e($comment->body)) !!}</p>

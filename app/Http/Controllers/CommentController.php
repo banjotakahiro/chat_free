@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 
 class CommentController extends Controller
 {
@@ -35,14 +36,29 @@ class CommentController extends Controller
         // $request->allでfillableも代入している
         $comment = new Comment($request->all());
         // $comment->body = $request->bodyと似ている
+        // この時点でqueryは実行されてしまっているため、変数で引き継ぐことはできない!!!
+        $comments_id = Comment::where('post_id', $post->id);
+        preg_match_all('/@(\w+)/', $request->body, $matches);
+        // リストを指定してそこに入れていく！！！
+        foreach ($matches[1] as $mentioned_comment_id) {
+            $first_mentioned_comment_id = $comments_id->where('comment_id', $mentioned_comment_id)->first();
+            if ($first_mentioned_comment_id) {
+                $comment->mention_id_1 = $first_mentioned_comment_id->id;
+                // 通知などの処理を追加
+            }
+        }
 
         // commentsの紐づいているイメージが難しい
         try {
+            $comment_max = Comment::where('post_id', $post->id)->max('comment_id');
+            if (!isset($comment_max)) {
+                $comment_max = 0;
+            }
+            $comment->comment_id = $comment_max + 1;
             $post->comments()->save($comment);
         } catch (\Exception $e) {
             return back()->withInput()->withErrors($e->getMessage());
         }
-
         return redirect()
             ->route('posts.show', $post)
             ->with('notice', 'コメント登録しました');
