@@ -25,14 +25,15 @@
         <section class="font-sans break-normal text-gray-900 ">
             @foreach ($comments as $comment)
                 <div class="my-2 yourClickTarget">
-                    <span onmouseover="showInfo('これはボックス1です');" onmouseout="hideInfo();">
+                    <span class="infobox">
                         <span value="" class="font-bold mr-3 "
-                            id="comment_id_{{ $loop->iteration }}">{{ $comment->comment_id }}</span>
+                            id="comment_id_{{ $loop->index }}">{{ $comment->comment_id }}</span>
                         <span class="font-bold mr-3 ">平泉を愛するもの</span>
                         <span class="text-sm ">{{ $comment->created_at }}</span>
                     </span>
-                    <div id="infoBox_{{ $loop->iteration }}"
-                        class="bg-black text-white text-sm absolute p-2 rounded shadow-lg hidden">ここに情報が表示されます
+                    <div id="show_box_{{ $loop->index }}"
+                        class="bg-black text-white text-sm absolute p-2 rounded shadow-lg hidden">
+                        ここに情報を表示します！！
                     </div>
                     <p>{!! nl2br(e($comment->body)) !!}</p>
                 </div>

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // クリックされた要素を取得
-    var clickTargets = document.getElementsByClassName("yourClickTarget");
+    let clickTargets = document.getElementsByClassName("yourClickTarget");
 
     // クリックイベントハンドラを定義
     function clickHandler(i) {
@@ -16,34 +16,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 各要素にクリックイベントを追加
-    for (var i = 1; i <= clickTargets.length; i++) {
+    for (let i = 0; i < clickTargets.length; i++) {
         clickTargets[i].addEventListener("click", clickHandler(i));
     }
 
-    function showInfo(text) {
-        const infoBox = document.getElementById('infoBox');
+    function showInfo(text,i) {
+        const infoBox = document.getElementById('show_box_'+i);
         infoBox.textContent = text;
         infoBox.style.display = 'block';
     }
 
-    function hideInfo() {
-        const infoBox = document.getElementById('infoBox');
+    function hideInfo(i) {
+        const infoBox = document.getElementById('show_box_'+i);
         infoBox.style.display = 'none';
     }
+    let element = document.getElementsByClassName("infobox");
 
-    for (let i = 1; i <= clickTargets.length; i++) {
-        const element = document.getElementById(`infoBox_${i}`);
-        console.log(`infoBox_${i}`)
+    for (let i = 0; i < element.length; i++) {
         // マウスオーバーイベントの追加
-        element.addEventListener('mouseover', function() {
-            // マウスオーバー時の処理をここに記述
-            showInfo(text);
-        });
+        element[i].addEventListener('mouseover',function () {
+            showInfo("税金払いたくない",i);
+        }); 
         
         // マウスアウトイベントの追加
-        element.addEventListener('mouseout', function() {
-            // マウスアウト時の処理をここに記述
-            hideInfo();
+        element[i].addEventListener('mouseout',function () {
+            hideInfo(i);
         });
     }
     
