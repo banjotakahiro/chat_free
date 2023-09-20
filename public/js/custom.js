@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // 入力欄にクリックされたテキストを追加
             var inputField = document.getElementById("yourInputField");
             inputField.value += "@" + text;
-            // 戻ってしまった。。
         };
     }
 
@@ -23,4 +22,15 @@ document.addEventListener("DOMContentLoaded", function () {
     
     
 });
+
+function showInfo(text) {
+    const infoBox = document.getElementById('infoBox');
+    infoBox.textContent = text;
+    infoBox.style.display = 'block';
+}
+
+function hideInfo() {
+    const infoBox = document.getElementById('infoBox');
+    infoBox.style.display = 'none';
+}
 
