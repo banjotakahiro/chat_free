@@ -31,13 +31,15 @@
                         <span class="font-bold mr-3 ">平泉を愛するもの</span>
                         <span class="text-sm ">{{ $comment->created_at }}</span>
                     </span>
+                    <div class="hidden">
+                        {{ $comment -> mention_id_1 }}
+                    </div>
                     <div id="show_box_{{ $loop->index }}"
                         class="bg-black text-white text-sm absolute p-2 rounded shadow-lg hidden">
                         ここに情報を表示します！！
                     </div>
                     <p>{!! nl2br(e($comment->body)) !!}</p>
                 </div>
-                <hr>
             @endforeach
         </section>
         <x-validation-errors :errors="$errors" />

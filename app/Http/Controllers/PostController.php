@@ -67,7 +67,7 @@ class PostController extends Controller
         $post = Post::with(['user'])->find($id);
         // コメントに紐づくユーザー情報も取得している
         $comments = $post->comments()->get();
-
+        
         return view('posts.show', compact('post','comments'));
     }
 
