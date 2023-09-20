@@ -30,16 +30,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const infoBox = document.getElementById('show_box_'+i);
         infoBox.style.display = 'none';
     }
-    let element = document.getElementsByClassName("infobox");
-
-    for (let i = 0; i < element.length; i++) {
+    let MouseoverTargets = document.getElementsByClassName("infobox");
+    let hidden_box = document.getElementsByClassName("mention_box")
+    for (let i = 0; i < MouseoverTargets.length; i++) {
         // マウスオーバーイベントの追加
-        element[i].addEventListener('mouseover',function () {
-            showInfo("税金払いたくない",i);
+        console.log(hidden_box);
+        MouseoverTargets[i].addEventListener('mouseover',function () {
+            showInfo(hidden_box,i);
         }); 
         
         // マウスアウトイベントの追加
-        element[i].addEventListener('mouseout',function () {
+        MouseoverTargets[i].addEventListener('mouseout',function () {
             hideInfo(i);
         });
     }

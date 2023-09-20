@@ -31,8 +31,12 @@
                         <span class="font-bold mr-3 ">平泉を愛するもの</span>
                         <span class="text-sm ">{{ $comment->created_at }}</span>
                     </span>
-                    <div class="hidden">
-                        {{ $comment -> mention_id_1 }}
+                    <div class="hidden mention_box">
+                        @for ($i = 1; $i < 4; $i++)
+                            @if ($comment->mention_id_.$i)
+                                <div>{{ $comment->comment_id }}</div>
+                            @endif
+                        @endfor
                     </div>
                     <div id="show_box_{{ $loop->index }}"
                         class="bg-black text-white text-sm absolute p-2 rounded shadow-lg hidden">
