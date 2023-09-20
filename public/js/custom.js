@@ -16,21 +16,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 各要素にクリックイベントを追加
-    for (var i = 0; i < clickTargets.length; i++) {
-        clickTargets[i].addEventListener("click", clickHandler(i+1));
+    for (var i = 1; i <= clickTargets.length; i++) {
+        clickTargets[i].addEventListener("click", clickHandler(i));
     }
-    
+
+    function showInfo(text) {
+        const infoBox = document.getElementById('infoBox');
+        infoBox.textContent = text;
+        infoBox.style.display = 'block';
+    }
+
+    function hideInfo() {
+        const infoBox = document.getElementById('infoBox');
+        infoBox.style.display = 'none';
+    }
+
+    for (let i = 1; i <= clickTargets.length; i++) {
+        const element = document.getElementById(`infoBox_${i}`);
+        console.log(`infoBox_${i}`)
+        // マウスオーバーイベントの追加
+        element.addEventListener('mouseover', function() {
+            // マウスオーバー時の処理をここに記述
+            showInfo(text);
+        });
+        
+        // マウスアウトイベントの追加
+        element.addEventListener('mouseout', function() {
+            // マウスアウト時の処理をここに記述
+            hideInfo();
+        });
+    }
     
 });
 
-function showInfo(text) {
-    const infoBox = document.getElementById('infoBox');
-    infoBox.textContent = text;
-    infoBox.style.display = 'block';
-}
 
-function hideInfo() {
-    const infoBox = document.getElementById('infoBox');
-    infoBox.style.display = 'none';
-}
 

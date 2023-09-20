@@ -31,8 +31,8 @@
                         <span class="font-bold mr-3 ">平泉を愛するもの</span>
                         <span class="text-sm ">{{ $comment->created_at }}</span>
                     </span>
-                    <div id="infoBox"
-                        class="info-box bg-black text-white text-sm absolute p-2 rounded shadow-lg hidden">ここに情報が表示されます
+                    <div id="infoBox_{{ $loop->iteration }}"
+                        class="bg-black text-white text-sm absolute p-2 rounded shadow-lg hidden">ここに情報が表示されます
                     </div>
                     <p>{!! nl2br(e($comment->body)) !!}</p>
                 </div>
