@@ -33,7 +33,8 @@
                     </span>
                     <div class="hidden mention_box">
                         @for ($i = 1; $i < 4; $i++)
-                            @if ($comment->mention_id_.$i)
+                            @if ($comment->mention_id_.$i);
+                                {{-- mention_idの取得の仕方を変更したい。向こうはcontroller内なのでこちらより融通がきく --}}
                                 <div>{{ $comment->comment_id }}</div>
                             @endif
                         @endfor
@@ -51,12 +52,12 @@
         <form action="{{ route('posts.comments.store', $post) }}" method="POST"
             class="rounded pt-3 pb-8 mb-4 flex flex-wrap">
             @csrf
-            <div class="w-full md:w-3/4 mb-4 md:pr-2"> <!-- テキストエリアの横幅を7/8に設定 -->
+            <div class="fixed bottom-0 w-3/4 md:w-1/3 mb-4 md:pr-2"> <!-- テキストエリアの横幅を7/8に設定 -->
                 <textarea name="body" rows="2" id="yourInputField"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
                     required placeholder="本文">{{ old('body') }}</textarea>
             </div>
-            <div class=" md:w-1/8"> <!-- 登録ボタンの横幅を1/8に設定 -->
+            <div class="fixed bottom-0 md:w-1/8"> <!-- 登録ボタンの横幅を1/8に設定 -->
                 <input type="submit" value="コメント追加"
                     class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             </div>

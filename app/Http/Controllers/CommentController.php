@@ -48,11 +48,28 @@ class CommentController extends Controller
                     throw new \Exception('メンションできるコメントは3つまでです。');
                 }
                 $search_mentioned_comment_id = Comment::where('post_id', $post->id)->where('comment_id', $mentioned_comment_id)->first();
+                $items = [];
+
+                // ここからわからなくなった。。。。
                 if ($search_mentioned_comment_id) {
                     $mention_id = "mention_id_$counter";
-                    $comment->$mention_id = $search_mentioned_comment_id->id;
+                    $items []= $search_mentioned_comment_id->comment_id;
+                    $comment->$mention_id = $search_mentioned_comment_id->comment_id;
+                    if($items){
+                        foreach ($items as $item) {
+                            foreach ($items as $otherItem) {
+                                // 同じ値を比較
+                                if ($item === $otherItem) {
+                                    // 一方の値をnullに設定
+                                    $item = null;
+                                    // モデルの更新を保存
+                                    $item->save();
+                                }
+                            }
+                        }
+                    }
                     // 通知などの処理を追加
-                }else{
+                } else {
                     throw new \Exception('このメンションした番号は存在しません');
                 }
                 $counter++;
