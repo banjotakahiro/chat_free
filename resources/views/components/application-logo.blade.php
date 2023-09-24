@@ -1,1 +1,1 @@
-<h1 class="text-lg">Hare Blog</h1>
+<h1 class="text-lg">平泉チャット</h1>

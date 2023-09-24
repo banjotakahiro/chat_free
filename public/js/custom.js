@@ -20,9 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
         clickTargets[i].addEventListener("click", clickHandler(i));
     }
 
-    function showInfo(text,i) {
+    function showInfo(i) {
         const infoBox = document.getElementById('show_box_'+i);
-        infoBox.textContent = text;
+        const mention_word = document.getElementById("mention_content_"+i);
+        infoBox.textContent = mention_word.textContent;
         infoBox.style.display = 'block';
     }
 
@@ -31,12 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
         infoBox.style.display = 'none';
     }
     let MouseoverTargets = document.getElementsByClassName("infobox");
-    let hidden_box = document.getElementsByClassName("mention_box")
+    // let mention_box = document.getElementsByClassName("mention_box")
     for (let i = 0; i < MouseoverTargets.length; i++) {
         // マウスオーバーイベントの追加
-        console.log(hidden_box);
         MouseoverTargets[i].addEventListener('mouseover',function () {
-            showInfo(hidden_box,i);
+            showInfo(i);
         }); 
         
         // マウスアウトイベントの追加

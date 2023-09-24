@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -14,26 +15,26 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {   
-    /* テーブルから全てのレコードを取得する */
+    {
+        /* テーブルから全てのレコードを取得する */
         $thread = Post::query();
-        
-        
-         /* キーワードから検索処理 */
-         // 任意の変数に受け取った送信された情報を代入します
-         // htmlのinputタグにはname属性に対して'keyword'と設定されているため
-         // $keywordへ$requestの中から、nameが'keyword'のinputを代入します
+
+
+        /* キーワードから検索処理 */
+        // 任意の変数に受け取った送信された情報を代入します
+        // htmlのinputタグにはname属性に対して'keyword'と設定されているため
+        // $keywordへ$requestの中から、nameが'keyword'のinputを代入します
 
         $keyword = $request->input('keyword');
-        if(!empty($keyword)) { //もしも、$keywordの中身が空ではない場合に検索処理実行
+        if (!empty($keyword)) { //もしも、$keywordの中身が空ではない場合に検索処理実行
             $thread->where('title', 'LIKE', "%{$keyword}%")
-            ->orWhere('body', 'LIKE', "%{$keyword}%")
-            ->get();
+                ->orWhere('body', 'LIKE', "%{$keyword}%")
+                ->get();
             $posts = $thread->with('user')->latest()->paginate(4);
-        }else {
+        } else {
             $posts = Post::with('user')->latest()->paginate(4);
         }
-        
+
         return view('posts.index', compact('posts'));
     }
 
@@ -67,8 +68,8 @@ class PostController extends Controller
         $post = Post::with(['user'])->find($id);
         // コメントに紐づくユーザー情報も取得している
         $comments = $post->comments()->get();
-        
-        return view('posts.show', compact('post','comments'));
+        $mention_comments = $post->comments()->select('mention_id_1', 'mention_id_2', 'mention_id_3');
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**

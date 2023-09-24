@@ -31,13 +31,15 @@
                         <span class="font-bold mr-3 ">平泉を愛するもの</span>
                         <span class="text-sm ">{{ $comment->created_at }}</span>
                     </span>
-                    <div class="hidden mention_box">
-                        @for ($i = 1; $i < 4; $i++)
-                            @if ($comment->mention_id_.$i);
+                    <div class="hidden mention_box" id="mention_content_{{ $loop->index }}">
                                 {{-- mention_idの取得の仕方を変更したい。向こうはcontroller内なのでこちらより融通がきく --}}
-                                <div>{{ $comment->comment_id }}</div>
-                            @endif
-                        @endfor
+                        <div>
+                            <ul>
+                                <li>{{ $comment->mention_id_body_1 }}</li>
+                                <li>{{ $comment->mention_id_body_2 }}</li>
+                                <li>{{ $comment->mention_id_body_3 }}</li>
+                            </ul>
+                        </div>
                     </div>
                     <div id="show_box_{{ $loop->index }}"
                         class="bg-black text-white text-sm absolute p-2 rounded shadow-lg hidden">

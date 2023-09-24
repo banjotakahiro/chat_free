@@ -43,30 +43,30 @@ class CommentController extends Controller
             preg_match_all('/@(\w+)/', $request->body, $matches);
             // リストを指定してそこに入れていく！！！
             $counter = 1;
+            $items = [];
             foreach ($matches[1] as $mentioned_comment_id) {
                 if ($counter > 3) {
                     throw new \Exception('メンションできるコメントは3つまでです。');
                 }
-                $search_mentioned_comment_id = Comment::where('post_id', $post->id)->where('comment_id', $mentioned_comment_id)->first();
-                $items = [];
-
-                // ここからわからなくなった。。。。
-                if ($search_mentioned_comment_id) {
+                $search_mentioned_comment = Comment::where('post_id', $post->id)->where('comment_id', $mentioned_comment_id)->first();
+                if ($search_mentioned_comment) {
                     $mention_id = "mention_id_$counter";
-                    $items []= $search_mentioned_comment_id->comment_id;
-                    $comment->$mention_id = $search_mentioned_comment_id->comment_id;
+                    $mention_id_body= "mention_id_body_$counter";
+                    $mentioned_comment_id = $search_mentioned_comment->id;
                     if($items){
                         foreach ($items as $item) {
-                            foreach ($items as $otherItem) {
                                 // 同じ値を比較
-                                if ($item === $otherItem) {
+                                if ($item === $mentioned_comment_id) {
                                     // 一方の値をnullに設定
-                                    $item = null;
+                                    $mentioned_comment_id = null;
                                     // モデルの更新を保存
-                                    $item->save();
                                 }
                             }
                         }
+                    array_push($items, $mentioned_comment_id);
+                    $comment->$mention_id = $mentioned_comment_id;
+                    if ($mentioned_comment_id) {
+                        $comment->$mention_id_body = Comment::find($mentioned_comment_id)->body;
                     }
                     // 通知などの処理を追加
                 } else {
